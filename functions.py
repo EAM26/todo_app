@@ -1,3 +1,11 @@
+"""
+Functions belonging to the 'to do app' in gui.py
+"""
+
+from datetime import datetime
+
+
+# File functions: read and write
 FILEPATH = 'todos.txt'
 
 
@@ -17,6 +25,12 @@ def write_todos(content, filepath=FILEPATH):
      """
     with open(filepath, 'w') as file:
         return file.writelines(content)
+
+
+#  Time functions: get date and time as string
+def get_time_string():
+    now = datetime.now()
+    return datetime.strftime(now, "%b %d, %Y  %H:%M:%S")
 
 
 if __name__ == "__main__":
