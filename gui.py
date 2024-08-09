@@ -1,5 +1,10 @@
 import functions
 import FreeSimpleGUI as sg
+import os
+
+if not os.path.exists('todos.txt'):
+    with open("todos.txt", 'w'):
+        pass
 
 sg.theme("PythonPlus")
 label_clock = sg.Text("", key='clock')
