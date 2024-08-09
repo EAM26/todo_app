@@ -1,6 +1,19 @@
 import functions
 import FreeSimpleGUI as sg
 import os
+import sys
+
+
+# Function to get the correct path for resources
+def resource_path(relative_path):
+    """ Get the absolute path to the resource, works for dev and for PyInstaller """
+    if hasattr(sys, '_MEIPASS'):
+        # Running in a bundle
+        return os.path.join(sys._MEIPASS, relative_path)
+    else:
+        # Running in normal Python environment
+        return os.path.join(os.path.abspath("."), relative_path)
+
 
 if not os.path.exists('todos.txt'):
     with open("todos.txt", 'w'):
@@ -10,12 +23,12 @@ sg.theme("PythonPlus")
 label_clock = sg.Text("", key='clock')
 label = sg.Text("Type in a to-do")
 input_box = sg.InputText(tooltip="Enter todo", key="todo")
-add_button = sg.Button(key="Add",image_source='add.png', image_size=(25, 25),
+add_button = sg.Button(key="Add", image_source=resource_path("add.png"), image_size=(25, 25),
                        mouseover_colors="Orange", tooltip="Add Todo")
 list_box = sg.Listbox(values=functions.get_todos(), key='todos',
                       enable_events=True, size=(45, 10))
 edit_button = sg.Button("Edit")
-complete_button = sg.Button(key="Complete", image_source='complete.png',
+complete_button = sg.Button(key="Complete", image_source=resource_path('complete.png'),
                             mouseover_colors="Orange", tooltip="Complete Todo")
 exit_button = sg.Button("Exit")
 layout = [[label_clock], [label],
