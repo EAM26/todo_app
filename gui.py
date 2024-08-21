@@ -60,6 +60,7 @@ while True:
             todos.append(value['todo'].title().strip() + '\n')
             functions.write_todos(todos)
             window['todos'].update(values=todos)
+            window['todo'].update(value="")
 
         case 'Edit':
             try:
@@ -71,6 +72,7 @@ while True:
                 todos[index] = value['todo'].title().strip() + '\n'
                 functions.write_todos(todos)
                 window['todos'].update(values=todos)
+                window['todo'].update(value="")
             except IndexError:
                 sg.popup("Please select a todo first.", title="", font=('Helvetica', 20))
 
