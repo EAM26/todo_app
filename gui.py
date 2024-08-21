@@ -3,6 +3,9 @@ import FreeSimpleGUI as sg
 import os
 import sys
 
+# Command to create dist stand alone with add.png and complete.png:
+# pyinstaller --onefile --windowed --add-data "add.png;." --add-data "complete.png;." gui.py
+
 
 # Function to get the correct path for resources
 def resource_path(relative_path):
@@ -16,7 +19,7 @@ def resource_path(relative_path):
 
 
 if not os.path.exists('todos.txt'):
-    with open("todos.txt", 'w'):
+    with open("todos.txt", 'w') as file:
         pass
 
 sg.theme("PythonPlus")
@@ -81,6 +84,7 @@ while True:
             except IndexError:
                 sg.popup("Please select a todo first.", title="", font=('Helvetica', 20))
 
+        # when item of listbox is selected('todos'), the inputbox is updated
         case 'todos':
             window['todo'].update(value=value['todos'][0].strip('\n'))
 
