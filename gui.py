@@ -51,17 +51,21 @@ while True:
 
     match event:
         case 'Add':
+            if not value['todo'].strip():
+                continue
             todos = functions.get_todos()
-            todos.append(value['todo'].title() + '\n')
+            todos.append(value['todo'].title().strip() + '\n')
             functions.write_todos(todos)
             window['todos'].update(values=todos)
 
         case 'Edit':
             try:
+                if not value['todo'].strip():
+                    continue
                 old_value = value['todos'][0]
                 todos = functions.get_todos()
                 index = todos.index(old_value)
-                todos[index] = value['todo'].title() + '\n'
+                todos[index] = value['todo'].title().strip() + '\n'
                 functions.write_todos(todos)
                 window['todos'].update(values=todos)
             except IndexError:
