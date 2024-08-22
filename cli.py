@@ -22,10 +22,11 @@ while True:
         for index, item in enumerate(todos):
             item = item.strip('\n')
             print(f"{index + 1} -{item}")
-
     elif user_action.startswith('edit'):
         try:
             todos = functions.get_todos()
+
+            # get index number
             todo_num = int(user_action.replace('edit', '', 1).strip()) - 1
 
             todos[todo_num] = input("Enter new todo: ").title() + '\n'

@@ -11,7 +11,7 @@ FILEPATH = 'todos.txt'
 
 def get_todos(filepath=FILEPATH):
     """"
-    Read s text file and return a
+    Reads text file and return a
     list of to-do items
     """
     with open(filepath, "r") as file:
@@ -27,11 +27,16 @@ def write_todos(content, filepath=FILEPATH):
         return file.writelines(content)
 
 
-#  Time functions: get date and time as string
+#  Time functions:
 def get_time_string():
+    """"
+    Get date and time and return as string
+    """
     now = datetime.now()
     return datetime.strftime(now, "%b %d, %Y  %H:%M:%S")
 
 
 if __name__ == "__main__":
     print("This is the functions module running as main")
+
+

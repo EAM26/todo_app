@@ -3,6 +3,9 @@ import FreeSimpleGUI as sg
 import os
 import sys
 
+# Command to create dist stand alone with add.png and complete.png:
+# pyinstaller --onefile --windowed --add-data "add.png;." --add-data "complete.png;." gui.py
+
 
 # Function to get the correct path for resources
 def resource_path(relative_path):
@@ -16,7 +19,7 @@ def resource_path(relative_path):
 
 
 if not os.path.exists('todos.txt'):
-    with open("todos.txt", 'w'):
+    with open("todos.txt", 'w') as file:
         pass
 
 sg.theme("PythonPlus")
@@ -51,19 +54,25 @@ while True:
 
     match event:
         case 'Add':
+            if not value['todo'].strip():
+                continue
             todos = functions.get_todos()
-            todos.append(value['todo'].title() + '\n')
+            todos.append(value['todo'].title().strip() + '\n')
             functions.write_todos(todos)
             window['todos'].update(values=todos)
+            window['todo'].update(value="")
 
         case 'Edit':
             try:
+                if not value['todo'].strip():
+                    continue
                 old_value = value['todos'][0]
                 todos = functions.get_todos()
                 index = todos.index(old_value)
-                todos[index] = value['todo'].title() + '\n'
+                todos[index] = value['todo'].title().strip() + '\n'
                 functions.write_todos(todos)
                 window['todos'].update(values=todos)
+                window['todo'].update(value="")
             except IndexError:
                 sg.popup("Please select a todo first.", title="", font=('Helvetica', 20))
 
@@ -77,6 +86,7 @@ while True:
             except IndexError:
                 sg.popup("Please select a todo first.", title="", font=('Helvetica', 20))
 
+        # when item of listbox is selected('todos'), the inputbox is updated
         case 'todos':
             window['todo'].update(value=value['todos'][0].strip('\n'))
 
